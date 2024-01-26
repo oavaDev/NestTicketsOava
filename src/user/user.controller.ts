@@ -16,7 +16,9 @@ export class UserController {
     return this.userService.login(user);
   }
   @Post('register')
-  register(@Body() createUserDto: createUserDto): Promise<createUserDto> {
+  register(
+    @Body() createUserDto: createUserDto,
+  ): Promise<createUserDto | string> {
     return this.userService.register(createUserDto);
   }
   @Delete()
