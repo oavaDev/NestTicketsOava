@@ -41,10 +41,11 @@ export class UserService {
       return 'Invalid credentials';
     }
   }
+
   async register(user: createUserDto) {
     const existingUser = await this.userModel.findOne({ email: user.email });
     if (existingUser) {
-      return "User already exists"
+      return 'User already exists';
     }
     user.password = await generateHashedPassword(user.password);
     const createdUser = new this.userModel(user);
