@@ -4,10 +4,13 @@ import { PassportModule } from '@nestjs/passport';
 @Module({
   imports: [
     PassportModule.register({ defaultStrategy: 'jwt' }),
-    JwtModule.register({
-      secret: process.env['JWT_SECRET'],
-      signOptions: { expiresIn: '24h' },
+    JwtModule.registerAsync({
+      useFactory: async () => ({
+        secret: process.env['JWT_SECRET'],
+        signOptions: { expiresIn: '2h' },
+      }),
     }),
   ],
+  exports: [JwtModule],
 })
 export class AuthModule {}
