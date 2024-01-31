@@ -5,10 +5,10 @@ import { AuthLoginDto } from './interfaces/authLoginDto.entity';
 import { LocalGuard } from './guards/local.guard';
 
 @Controller('auth')
-@UseGuards(LocalGuard)
 export class AuthenticationController {
   constructor(private readonly authenticationService: AuthenticationService) {}
   @Post('login')
+  @UseGuards(LocalGuard)
   async login(@Body() authLoginDto: AuthLoginDto) {
     return await this.authenticationService.login(authLoginDto);
   }
