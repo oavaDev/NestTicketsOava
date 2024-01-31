@@ -17,9 +17,6 @@ export class AuthenticationService {
     private readonly jwtService: JwtService,
   ) {}
 
-  generateToken(payload: { email: string; username: string }) {
-    return this.jwtService.sign(payload);
-  }
   async login(userToLogin: AuthLoginDto) {
     const user = await this.userModel.findOne({ email: userToLogin.email });
     if (!user) {
@@ -47,5 +44,21 @@ export class AuthenticationService {
     user.password = await generateHashedPassword(user.password);
     const createdUser = new this.userModel(user);
     return createdUser.save();
+  }
+
+  async validate(userToValidate: AuthLoginDto) {
+    const user = await this.userModel.findOne({ email: userToValidate.email });
+    if (!user) {
+      return null;
+    }
+    const passwordsMatch = await verifyHashAndPassword(
+      userToValidate.password,
+      user.password,
+    );
+    if (passwordsMatch) {
+      return user;
+    } else {
+      return null;
+    }
   }
 }
