@@ -31,7 +31,9 @@ export class AuthenticationService {
         email: user.email,
         username: user.username,
       });
-      return token;
+      return {
+        access_token: token,
+      };
     } else {
       return null;
     }
