@@ -4,6 +4,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import { UserModule } from './user/user.module';
+import { AuthenticationModule } from './authentication/authentication.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -12,6 +13,7 @@ import { UserModule } from './user/user.module';
     }),
     MongooseModule.forRoot(process.env['MONGO_URI']),
     UserModule,
+    AuthenticationModule,
   ],
   controllers: [AppController],
   providers: [AppService],
