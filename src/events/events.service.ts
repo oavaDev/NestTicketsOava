@@ -1,9 +1,9 @@
 import { HttpException, Injectable } from '@nestjs/common';
 import { CreateEventDto } from './dto/create-event.dto';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import { Model } from "mongoose";
 import { Event } from './schema/event.schema';
-
+import * as Mongoose from 'mongoose';
 @Injectable()
 export class EventsService {
   constructor(@InjectModel(Event.name) private eventModel: Model<Event>) {}
@@ -21,6 +21,17 @@ export class EventsService {
         .exec();
     } catch (error) {
       throw new HttpException('Category not found', 404);
+    }
+  }
+  async findById(id) {
+    try {
+      return await this.eventModel
+        .findById({ _id: id })
+        .populate('category')
+        .exec();
+      //return await this.eventModel.findById(id).populate('category').exec();
+    } catch (error) {
+      throw new HttpException('Event not found', 404);
     }
   }
 }

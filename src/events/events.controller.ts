@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Param } from "@nestjs/common";
+import { Controller, Get, Post, Body, Param } from '@nestjs/common';
 import { EventsService } from './events.service';
 import { CreateEventDto } from './dto/create-event.dto';
 
@@ -13,6 +13,10 @@ export class EventsController {
   @Get()
   findAll() {
     return this.eventsService.findAll();
+  }
+  @Get(':id')
+  findById(@Param() params: any) {
+    return this.eventsService.findById(params.id);
   }
   @Get('/category/:category')
   findByCategory(@Param() params: any) {
