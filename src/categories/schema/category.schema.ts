@@ -5,7 +5,7 @@ import mongoose from 'mongoose';
 export type CategoryDocument = HydratedDocument<Category>;
 @Schema()
 export class Category {
-  @Prop({ type: mongoose.Schema.Types.ObjectId })
+  @Prop({ type: mongoose.Schema.Types.ObjectId, auto: true })
   _id: string;
   @Prop({ required: true })
   name: string;

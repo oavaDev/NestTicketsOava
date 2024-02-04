@@ -34,4 +34,7 @@ export class EventsService {
       throw new HttpException('Event not found', 404);
     }
   }
+  async update(id: string, createEventDto: CreateEventDto) {
+    return this.eventModel.findByIdAndUpdate(id, createEventDto);
+  }
 }
